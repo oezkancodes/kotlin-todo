@@ -8,13 +8,13 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="155dp"
-        android:layout_height="144dp"
+        android:layout_width="166dp"
+        android:layout_height="50dp"
         android:layout_marginTop="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/google_logo" />
+        app:srcCompat="@drawable/ic_kotlin_logo" />
 
     <TextView
         android:id="@+id/textView"
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:fontFamily="sans-serif-condensed-medium"
-        android:text="Google To Do"
+        android:text="Kotlin To Do"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
