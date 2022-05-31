@@ -14,9 +14,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+        /**
+         * Set Activity view with specific layout
+         */
         setContentView(R.layout.activity_main)
 
+        /**
+         * Input bindings
+         */
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
