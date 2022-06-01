@@ -1,5 +1,6 @@
 package com.example.kotlintodo
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -8,14 +9,29 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
+
+        /**
+         * Check if user exists
+         */
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            Toast.makeText(
+                this,
+                "Welcome back!",
+                Toast.LENGTH_SHORT
+            ).show()
+            goToTasks()
+            return
+        }
+
         /**
          * Set Activity view with specific layout
          */
@@ -39,12 +55,13 @@ class MainActivity : AppCompatActivity() {
     /**
      * Login user with E-Mail and Password.
      */
-    private fun login (email: String, password: String) {
+    private fun login(email: String, password: String) {
+        goToTasks()
         /**
          * Basic input validation
          */
         if (email.isEmpty() && password.isEmpty()) {
-            Toast.makeText(this,  "Please enter E-Mail and Password.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Please enter E-Mail and Password.", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -60,11 +77,20 @@ class MainActivity : AppCompatActivity() {
                         val user: FirebaseUser = task.result!!.user!!
                         println("LOGIN SUCCESSFUL")
                         println("USER: " + user.email)
+                        goToTasks()
                     } else {
                         println("LOGIN ERROR")
-                        Toast.makeText(this,  "Invalid Login Data. Check E-Mail and Password.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            this,
+                            "Invalid Login Data. Check E-Mail and Password.",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             )
+    }
+
+    private fun goToTasks() {
+        startActivity(Intent(this, TasksActivity::class.java))
     }
 }
