@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
      * Login user with E-Mail and Password.
      */
     private fun login(email: String, password: String) {
-        goToTasks()
         /**
          * Basic input validation
          */
@@ -74,12 +73,9 @@ class MainActivity : AppCompatActivity() {
             .addOnCompleteListener(
                 OnCompleteListener<AuthResult> { task ->
                     if (task.isSuccessful) {
-                        val user: FirebaseUser = task.result!!.user!!
-                        println("LOGIN SUCCESSFUL")
-                        println("USER: " + user.email)
+                        // val user: FirebaseUser = task.result!!.user!!
                         goToTasks()
                     } else {
-                        println("LOGIN ERROR")
                         Toast.makeText(
                             this,
                             "Invalid Login Data. Check E-Mail and Password.",
