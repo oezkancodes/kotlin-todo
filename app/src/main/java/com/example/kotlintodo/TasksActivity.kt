@@ -1,5 +1,6 @@
 package com.example.kotlintodo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.snackbar.Snackbar
@@ -32,8 +33,10 @@ class TasksActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarTasks.toolbar)
 
         binding.appBarTasks.fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+            println(view)
+            val user = FirebaseAuth.getInstance()
+            user.signOut()
+            startActivity(Intent(this, MainActivity::class.java))
         }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
