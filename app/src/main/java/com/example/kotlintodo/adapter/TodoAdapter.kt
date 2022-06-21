@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.R
 import com.example.kotlintodo.model.Todo
 
-class TodoAdapter (private val context: Context, private val dataset: List<Todo>): RecyclerView.Adapter<TodoAdapter.ItemViewHolder>() {
+class TodoAdapter (private val context: Context, private val dataset: List<Todo>): RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
     /**
      * A ViewHolder represents a single list item view in RecyclerView, and can be reused when possible.
      * A ViewHolder instance holds references to the individual views within a list item layout.
