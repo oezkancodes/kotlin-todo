@@ -26,10 +26,6 @@ class TasksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var user = FirebaseAuth.getInstance();
-        println(user.currentUser)
-
-
         binding = ActivityTasksBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

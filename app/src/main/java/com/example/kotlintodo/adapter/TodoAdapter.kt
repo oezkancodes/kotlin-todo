@@ -37,7 +37,7 @@ class TodoAdapter (private val context: Context, private val dataset: List<Todo>
      */
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
         val item = dataset[position]
-        holder.textView.text = item.stringResourceId.toString()
+        holder.textView.text = item.label
     }
 
     override fun getItemCount() = dataset.size
