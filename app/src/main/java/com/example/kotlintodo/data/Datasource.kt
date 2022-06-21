@@ -8,10 +8,12 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.tasks.await
 
 class Datasource {
-    fun loadTodos(): List<Todo> {
+    fun loadTodos(callback: (List<Todo>) -> Unit) {
         var user = FirebaseAuth.getInstance()
         val db = Firebase.firestore
         val todoList: MutableList<Todo> = mutableListOf()
+
+        // Fetch Data
         db.collection(user.currentUser!!.uid)
             .get()
             .addOnSuccessListener { docRef ->
@@ -29,10 +31,8 @@ class Datasource {
                     )
                     println(data)
                 }
+                callback(todoList)
             }
             .addOnFailureListener { exception -> println(exception) }
-
-        println(todoList)
-        return todoList
     }
 }

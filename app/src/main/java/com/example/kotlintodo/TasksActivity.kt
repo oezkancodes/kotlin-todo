@@ -54,10 +54,11 @@ class TasksActivity : AppCompatActivity() {
     }
 
     private fun renderTodos() {
-        val myDataset = Datasource().loadTodos()
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
-        recyclerView.adapter = TodoAdapter(this, myDataset)
-        recyclerView.setHasFixedSize(true)
+        Datasource().loadTodos { dataset ->
+            val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+            recyclerView.adapter = TodoAdapter(this, dataset)
+            recyclerView.setHasFixedSize(true)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
