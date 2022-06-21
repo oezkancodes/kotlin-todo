@@ -13,6 +13,7 @@
             android:name=".TasksActivity"
             android:exported="false"
             android:label="@string/title_activity_tasks"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
         <activity
             android:name=".MainActivity"
