@@ -12,6 +12,9 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlintodo.adapter.TodoAdapter
+import com.example.kotlintodo.data.Datasource
 import com.example.kotlintodo.databinding.ActivityTasksBinding
 import com.google.firebase.auth.FirebaseAuth
 
@@ -50,6 +53,15 @@ class TasksActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        renderTodos()
+    }
+
+    private fun renderTodos() {
+        val myDataset = Datasource().loadTodos()
+        val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+        recyclerView.adapter = TodoAdapter(this, myDataset)
+        recyclerView.setHasFixedSize(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
