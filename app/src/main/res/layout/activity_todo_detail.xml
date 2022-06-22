@@ -5,17 +5,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TodoDetailActivity"
-    android:background="@drawable/todo_detail_background"
     >
-
-
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btnBackToList"
+        style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Listen"
+        android:backgroundTint="#00000000"
+        android:text="Name der Liste"
+        android:textColor="#2196F3"
         app:icon="@drawable/ic_baseline_keyboard_arrow_left_24"
         app:iconPadding="0dp"
+        app:iconTint="#2196F3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@android:color/transparent"
+        android:button="@drawable/custom_checkbox"
+        android:text="Todo"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingLeft="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBackToList" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
