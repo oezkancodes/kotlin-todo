@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <CheckBox
-        android:id="@+id/checkBox"
+        android:id="@+id/cbCheckTodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -36,17 +36,34 @@
         app:layout_constraintTop_toBottomOf="@+id/btnBackToList" />
 
     <CheckBox
-        android:id="@+id/favorite"
+        android:id="@+id/favoriteStar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="56dp"
-
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:button="@android:drawable/btn_star"
         android:padding="@dimen/activity_horizontal_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <CheckBox
+        android:id="@+id/cbAddStep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="40dp"
+        android:background="@android:color/transparent"
+        android:button="@drawable/ic_add_step"
+        android:buttonTint="#2196F3"
+        android:paddingLeft="15dp"
+        android:text="Schritt hinzufügen"
+        android:textColor="#2196F3"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cbCheckTodo" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
