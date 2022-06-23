@@ -13,23 +13,30 @@ class Datasource {
         val db = Firebase.firestore
         val todoList: MutableList<Todo> = mutableListOf()
 
-        // Fetch Data
+        /* Fetch data from Firebase Firestore */
         db.collection(user.currentUser!!.uid)
             .get()
             .addOnSuccessListener { docRef ->
                 docRef.forEach {
-                    val data = it.getData()
-                    todoList.add(
-                        Todo(
-                            uid = "uid",
-                            label = "Label",
-                            note = "Note",
-                            steps = mutableListOf<Step>(),
-                            done = false,
-                            important = false
-                        )
+                    val data: MutableMap<String, Any> = it.data
+
+                    val uid = data["uid"] as String
+                    val label = data["label"] as String
+                    val note = data["note"] as String
+                    val steps = data["steps"] as MutableList<Step>
+                    val done = data["done"] as Boolean
+                    val important = data["important"] as Boolean
+
+                    /* Create instance and add into list */
+                    val todo = Todo(
+                        uid,
+                        label,
+                        note,
+                        steps,
+                        done,
+                        important
                     )
-                    println(data)
+                    todoList.add(todo)
                 }
                 callback(todoList)
             }
