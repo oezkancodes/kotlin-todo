@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
     tools:context=".TodoDetailActivity">
 
     <Button
@@ -12,6 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="#00000000"
+        android:padding="0dp"
         android:text="Name der Liste"
         android:textColor="#2196F3"
         app:icon="@drawable/ic_baseline_keyboard_arrow_left_24"
@@ -24,7 +27,6 @@
         android:id="@+id/cbCheckTodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:button="@drawable/custom_checkbox"
@@ -41,10 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="56dp"
-        android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:button="@android:drawable/btn_star"
-        android:padding="@dimen/activity_horizontal_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,6 @@
         android:id="@+id/cbAddStep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="40dp"
         android:background="@android:color/transparent"
         android:button="@drawable/ic_add_step"
@@ -70,11 +69,12 @@
         android:layout_width="0dp"
         android:layout_height="404dp"
         android:layout_marginTop="72dp"
+        android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Notiz hinzufügen"
         android:inputType="textMultiLine"
-        android:background="@android:color/transparent"
+        android:paddingTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -97,12 +97,12 @@
         android:id="@+id/divider02"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginBottom="20dp"
         android:background="?android:attr/listDivider"
+        app:layout_constraintBottom_toTopOf="@+id/etDateCreated"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etNotes" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/etDateCreated"
@@ -114,18 +114,21 @@
         android:inputType="textPersonName"
         android:text="Mi. 8. Juni erstellt"
         android:textAlignment="center"
+        android:textSize="14dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivDeleteTodo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_delete_todo"
-        tools:layout_editor_absoluteX="354dp"
-        tools:layout_editor_absoluteY="691dp" />
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_delete_todo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
