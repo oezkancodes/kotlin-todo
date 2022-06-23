@@ -32,7 +32,6 @@ class TasksActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarTasks.toolbar)
 
         binding.appBarTasks.fab.setOnClickListener { view ->
-            println(view)
             val user = FirebaseAuth.getInstance()
             user.signOut()
             startActivity(Intent(this, MainActivity::class.java))
