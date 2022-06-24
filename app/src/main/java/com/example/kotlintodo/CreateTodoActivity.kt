@@ -20,14 +20,24 @@ class CreateTodoActivity : AppCompatActivity() {
         binding = ActivityCreateTodoBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val label = binding.inputCreateTodoLabel
-        val button = binding.btnCreateTodo
+        val createButton = binding.btnCreateTodo
+        val backButton = binding.btnCancelCreateTodo
 
-        button.setOnClickListener{
+        createButton.setOnClickListener{
             onCreateTodo(label.text.toString())
+        }
+        backButton.setOnClickListener{
+            super.onBackPressed()
         }
     }
 
     private fun onCreateTodo(label: String) {
+        if (label.isEmpty()) {
+            showToast("Please enter Todo label")
+            return
+        }
+
+
         var user = FirebaseAuth.getInstance()
         var db = Firebase.firestore
         var data = HashMap<String, Any>()
@@ -45,11 +55,15 @@ class CreateTodoActivity : AppCompatActivity() {
         todoRef
             .set(data)
             .addOnSuccessListener {
-                Toast.makeText(this, "Created new Todo", Toast.LENGTH_SHORT).show()
+                showToast("Created new Todo")
                 startActivity(Intent(this, TasksActivity::class.java))
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to create Todo", Toast.LENGTH_SHORT).show()
+                showToast("Failed to create Todo")
             }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
