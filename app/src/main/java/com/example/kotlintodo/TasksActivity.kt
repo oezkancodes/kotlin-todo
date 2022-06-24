@@ -3,7 +3,6 @@ package com.example.kotlintodo
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -31,11 +30,15 @@ class TasksActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarTasks.toolbar)
 
-        binding.appBarTasks.fab.setOnClickListener { view ->
+        /**
+         * Signout FAB
+         */
+        binding.appBarTasks.fabSignOut.setOnClickListener { view ->
             val user = FirebaseAuth.getInstance()
             user.signOut()
             startActivity(Intent(this, MainActivity::class.java))
         }
+
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_tasks)
@@ -52,6 +55,9 @@ class TasksActivity : AppCompatActivity() {
         renderTodos()
     }
 
+    /**
+     * Fetch and render To-Dos.
+     */
     private fun renderTodos() {
         Datasource().loadTodos { dataset ->
             val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
