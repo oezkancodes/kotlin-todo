@@ -48,17 +48,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <CheckBox
-        android:id="@+id/cbAddStep"
+    <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="40dp"
         android:background="@android:color/transparent"
-        android:button="@drawable/ic_add_step"
-        android:buttonTint="#2196F3"
-        android:paddingLeft="15dp"
-        android:text="Schritt hinzufügen"
-        android:textColor="#2196F3"
+        android:drawableLeft="@drawable/ic_add_step"
+        android:drawablePadding="15dp"
+        android:drawableTint="#2196F3"
+        android:hint="Schritt hinzufügen"
+        android:textColorHint="#2196F3"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +68,6 @@
         android:id="@+id/etNotes"
         android:layout_width="0dp"
         android:layout_height="404dp"
-        android:layout_marginTop="72dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="start|top"
@@ -78,20 +77,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbAddStep"
-        app:layout_constraintVertical_bias="0.004" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <View
         android:id="@+id/divider01"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:layout_marginTop="72dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbAddStep" />
+        tools:layout_editor_absoluteY="264dp" />
 
     <View
         android:id="@+id/divider02"
