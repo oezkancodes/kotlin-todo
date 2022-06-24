@@ -49,7 +49,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/etAddStep"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -68,17 +68,18 @@
     <EditText
         android:id="@+id/etNotes"
         android:layout_width="0dp"
-        android:layout_height="404dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@android:color/transparent"
         android:ems="10"
         android:gravity="start|top"
         android:hint="Notiz hinzufügen"
         android:inputType="textMultiLine"
         android:paddingTop="16dp"
-        app:layout_constraintBottom_toBottomOf="@+id/divider02"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.625"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAddStep" />
 
     <View
         android:id="@+id/divider01"
@@ -88,7 +89,9 @@
         app:layout_constraintBottom_toTopOf="@+id/etNotes"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.375"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etAddStep"
+        app:layout_constraintVertical_bias="1.0" />
 
     <View
         android:id="@+id/divider02"
