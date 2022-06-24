@@ -13,6 +13,7 @@ import com.example.kotlintodo.TasksActivity
 import com.example.kotlintodo.model.Todo
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -25,6 +26,7 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
     class TodoViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.todo_label)
         val checkboxDone: MaterialCheckBox = view.findViewById(R.id.todo_done)
+        val checkboxImportant: MaterialCheckBox = view.findViewById(R.id.todo_important)
     }
 
     /**
@@ -51,16 +53,14 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
          */
         holder.textView.text = item.label
         holder.checkboxDone.isChecked = item.done
+        holder.checkboxImportant.isChecked = item.important
 
         /**
-         * Handle interaction
+         * Handle mark as done checkbox
          */
         holder.checkboxDone.setOnClickListener {
-            val user = FirebaseAuth.getInstance()
-            val userId = user.currentUser!!.uid.toString()
-
-            Firebase.firestore
-                .collection(userId)
+            val db = getTodoCollection()
+            db
                 .document(item.uid)
                 .update("done", !item.done)
                 .addOnSuccessListener {
@@ -70,6 +70,31 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
                     if (!item.done) showToast("Todo reopened")
                 }
         }
+        /**
+         * Handle mark as important checkbox
+         */
+        holder.checkboxImportant.setOnClickListener{
+            val db = getTodoCollection()
+            db
+                .document(item.uid)
+                .update("important", !item.important)
+                .addOnSuccessListener {
+                    item.important = !item.important
+                    holder.checkboxImportant.isChecked = item.important
+                    if (item.important) showToast("Todo marked")
+                    if (!item.important) showToast("Todo unmarked")
+                }
+        }
+    }
+
+    /**
+     * Get default data collection instance from uid of currentUser
+     */
+    private fun getTodoCollection (): CollectionReference {
+        val user = FirebaseAuth.getInstance()
+        val userId = user.currentUser!!.uid.toString()
+        // TODO: check if currentUser does exist
+        return Firebase.firestore.collection(userId)
     }
 
     private fun showToast(text: String) {
