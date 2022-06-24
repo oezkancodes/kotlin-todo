@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".CreateTodoActivity"
+            android:exported="false" />
+        <activity
             android:name=".TasksActivity"
             android:exported="false"
             android:label="@string/title_activity_tasks"

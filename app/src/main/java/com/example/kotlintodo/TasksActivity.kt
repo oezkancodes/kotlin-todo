@@ -30,15 +30,6 @@ class TasksActivity : AppCompatActivity() {
 
         setSupportActionBar(binding.appBarTasks.toolbar)
 
-        /**
-         * Signout FAB
-         */
-        binding.appBarTasks.fabSignOut.setOnClickListener { view ->
-            val user = FirebaseAuth.getInstance()
-            user.signOut()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_tasks)
@@ -53,6 +44,7 @@ class TasksActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         renderTodos()
+        initClickHandlers()
     }
 
     /**
@@ -63,6 +55,23 @@ class TasksActivity : AppCompatActivity() {
             val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
             recyclerView.adapter = TodoAdapter(this, dataset)
             recyclerView.setHasFixedSize(true)
+        }
+    }
+
+    private fun initClickHandlers() {
+        /**
+         * Signout FAB
+         */
+        binding.appBarTasks.fabSignOut.setOnClickListener { view ->
+            val user = FirebaseAuth.getInstance()
+            user.signOut()
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        /**
+         * Todo FAB
+         */
+        binding.appBarTasks.fabAddTodo.setOnClickListener { view ->
+            startActivity(Intent(this, CreateTodoActivity::class.java))
         }
     }
 
