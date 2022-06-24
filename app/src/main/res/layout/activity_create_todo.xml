@@ -10,8 +10,8 @@
         android:id="@+id/create_todo"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginEnd="6dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -32,6 +32,7 @@
             android:id="@+id/input_create_todo_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:autofillHints=""
             android:ems="10"
             android:hint="@string/input_hint_create_todo"
@@ -42,7 +43,15 @@
             android:id="@+id/btn_create_todo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/primary"
             android:text="@string/btn_create_todo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_cancel_create_todo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@android:color/darker_gray"
+            android:text="Back" />
 
     </LinearLayout>
 
