@@ -1,6 +1,7 @@
 package com.example.kotlintodo.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.view.LayoutInflater
@@ -11,13 +12,16 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.R
+import com.example.kotlintodo.TodoDetailActivity
 import com.example.kotlintodo.data.Datasource
 import com.example.kotlintodo.model.Todo
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 class TodoAdapter(private val context: Context, private val dataset: List<Todo>) :
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
@@ -32,6 +36,7 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         val textView: TextView = view.findViewById(R.id.todo_label)
         val checkboxDone: MaterialCheckBox = view.findViewById(R.id.todo_done)
         val checkboxImportant: MaterialCheckBox = view.findViewById(R.id.todo_important)
+        val todoItem: MaterialCardView = view.findViewById(R.id.todo_item)
     }
 
     /**
@@ -61,6 +66,16 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         holder.checkboxImportant.isChecked = item.important
         toggleDoneStrikethrough(holder, item.done)
         toggleImportantCheckboxColor(holder, item.important)
+
+        holder.todoItem.setOnClickListener { view ->
+            val intent = Intent(context, TodoDetailActivity::class.java)
+            /**
+             * Pass uid for TodoDetailActivity.
+             * https://developer.android.com/reference/android/content/Intent#putExtra(java.lang.String,%20android.os.Parcelable)
+             */
+            intent.putExtra("uid", item.uid)
+            context.startActivity(intent)
+        }
 
         /**
          * Handle mark as done checkbox
