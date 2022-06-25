@@ -32,6 +32,10 @@ class TodoDetailActivity : AppCompatActivity() {
         val important = binding.favoriteStar
         val done = binding.cbCheckTodo
 
+        backButton.setOnClickListener {
+            super.onBackPressed()
+        }
+
         etAddStep = findViewById(R.id.etAddStep)
 
         etAddStep.addTextChangedListener(object: TextWatcher {
