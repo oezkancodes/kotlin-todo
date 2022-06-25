@@ -68,7 +68,13 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         toggleImportantCheckboxColor(holder, item.important)
 
         holder.todoItem.setOnClickListener { view ->
-            context.startActivity(Intent(context, TodoDetailActivity::class.java))
+            val intent = Intent(context, TodoDetailActivity::class.java)
+            /**
+             * Pass uid for TodoDetailActivity.
+             * https://developer.android.com/reference/android/content/Intent#putExtra(java.lang.String,%20android.os.Parcelable)
+             */
+            intent.putExtra("uid", item.uid)
+            context.startActivity(intent)
         }
 
         /**

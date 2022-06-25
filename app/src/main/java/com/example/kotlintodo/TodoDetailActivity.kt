@@ -6,14 +6,31 @@ import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 class TodoDetailActivity : AppCompatActivity() {
     private lateinit var etAddStep: EditText
+    private lateinit var uid: String
+    private lateinit var binding: ActivityTodoDetailBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+        /**
+         * Get uid from intent.putExtra of previous Activity.
+         */
+        uid = intent.extras?.get("uid") as String
 
-        setContentView(R.layout.activity_todo_detail)
+        /**
+         * Setup Binding & View
+         */
+        super.onCreate(savedInstanceState)
+        binding = ActivityTodoDetailBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val backButton = binding.btnBackToList
+        val important = binding.favoriteStar
+        val done = binding.cbCheckTodo
 
         etAddStep = findViewById(R.id.etAddStep)
 
@@ -27,6 +44,17 @@ class TodoDetailActivity : AppCompatActivity() {
             }
 
         })
+    }
 
+    private fun loadTodo (uid: String) {
+        var user = FirebaseAuth.getInstance()
+        val db = Firebase.firestore
+        db.collection(user.currentUser!!.uid)
+            .document(uid)
+            .get()
+            .addOnSuccessListener { docRef ->
+                val data: MutableMap<String, Any> = docRef.data as MutableMap<String, Any>
+
+            }
     }
 }
