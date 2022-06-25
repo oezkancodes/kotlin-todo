@@ -1,11 +1,13 @@
 package com.example.kotlintodo.adapter
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.R
 import com.example.kotlintodo.model.Todo
@@ -52,6 +54,9 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         holder.textView.text = item.label
         holder.checkboxDone.isChecked = item.done
         holder.checkboxImportant.isChecked = item.important
+        if (item.important) {
+            toggleImportantCheckboxColor(holder, true)
+        }
 
         /**
          * Handle mark as done checkbox
@@ -71,7 +76,7 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         /**
          * Handle mark as important checkbox
          */
-        holder.checkboxImportant.setOnClickListener{
+        holder.checkboxImportant.setOnClickListener {
             val db = getTodoCollection()
             db
                 .document(item.uid)
@@ -79,8 +84,13 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
                 .addOnSuccessListener {
                     item.important = !item.important
                     holder.checkboxImportant.isChecked = item.important
-                    if (item.important) showToast("Todo marked")
-                    if (!item.important) showToast("Todo unmarked")
+                    if (item.important) {
+                        showToast("Todo marked")
+                        toggleImportantCheckboxColor(holder, true)
+                    } else {
+                        showToast("Todo unmarked")
+                        toggleImportantCheckboxColor(holder, false)
+                    }
                 }
         }
     }
@@ -88,11 +98,20 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
     /**
      * Get default data collection instance from uid of currentUser
      */
-    private fun getTodoCollection (): CollectionReference {
+    private fun getTodoCollection(): CollectionReference {
         val user = FirebaseAuth.getInstance()
         val userId = user.currentUser!!.uid.toString()
         // TODO: check if currentUser does exist
         return Firebase.firestore.collection(userId)
+    }
+
+    private fun toggleImportantCheckboxColor(holder: TodoViewHolder, checked: Boolean) {
+        holder.checkboxImportant.buttonTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                context,
+                if (checked) R.color.primary else R.color.default_grey
+            )
+        )
     }
 
     private fun showToast(text: String) {

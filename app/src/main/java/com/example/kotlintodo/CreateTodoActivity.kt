@@ -23,10 +23,10 @@ class CreateTodoActivity : AppCompatActivity() {
         val createButton = binding.btnCreateTodo
         val backButton = binding.btnCancelCreateTodo
 
-        createButton.setOnClickListener{
+        createButton.setOnClickListener {
             onCreateTodo(label.text.toString())
         }
-        backButton.setOnClickListener{
+        backButton.setOnClickListener {
             super.onBackPressed()
         }
     }
