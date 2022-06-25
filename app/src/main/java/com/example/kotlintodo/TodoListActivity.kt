@@ -3,7 +3,6 @@ package com.example.kotlintodo
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -15,28 +14,23 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.adapter.TodoAdapter
 import com.example.kotlintodo.data.Datasource
-import com.example.kotlintodo.databinding.ActivityTasksBinding
+import com.example.kotlintodo.databinding.TodoListActivityBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class TasksActivity : AppCompatActivity() {
+class TodoListActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityTasksBinding
+    private lateinit var binding: TodoListActivityBinding
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityTasksBinding.inflate(layoutInflater)
+        binding = TodoListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarTasks.toolbar)
 
-        binding.appBarTasks.fab.setOnClickListener { view ->
-            println(view)
-            val user = FirebaseAuth.getInstance()
-            user.signOut()
-            startActivity(Intent(this, MainActivity::class.java))
-        }
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_tasks)
@@ -51,13 +45,34 @@ class TasksActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         renderTodos()
+        initClickHandlers()
     }
 
+    /**
+     * Fetch and render To-Dos.
+     */
     private fun renderTodos() {
         Datasource().loadTodos { dataset ->
-            val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+            recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
             recyclerView.adapter = TodoAdapter(this, dataset)
             recyclerView.setHasFixedSize(true)
+        }
+    }
+
+    private fun initClickHandlers() {
+        /**
+         * Signout FAB
+         */
+        binding.appBarTasks.fabSignOut.setOnClickListener { view ->
+            val user = FirebaseAuth.getInstance()
+            user.signOut()
+            startActivity(Intent(this, SignInActivity::class.java))
+        }
+        /**
+         * Todo FAB
+         */
+        binding.appBarTasks.fabAddTodo.setOnClickListener { view ->
+            startActivity(Intent(this, CreateTodoActivity::class.java))
         }
     }
 
