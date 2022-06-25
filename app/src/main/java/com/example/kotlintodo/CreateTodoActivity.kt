@@ -4,7 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.kotlintodo.databinding.ActivityCreateTodoBinding
+import com.example.kotlintodo.databinding.CreateTodoActivityBinding
 import com.example.kotlintodo.model.Step
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -12,12 +12,12 @@ import com.google.firebase.ktx.Firebase
 
 class CreateTodoActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityCreateTodoBinding
+    private lateinit var binding: CreateTodoActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityCreateTodoBinding.inflate(layoutInflater)
+        binding = CreateTodoActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val label = binding.inputCreateTodoLabel
         val createButton = binding.btnCreateTodo
