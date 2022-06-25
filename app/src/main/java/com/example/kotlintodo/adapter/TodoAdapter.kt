@@ -36,7 +36,7 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
          */
         val adapterLayout = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.todo_item, parent, false)
+            .inflate(R.layout.todo_list_todo_item, parent, false)
 
         return TodoViewHolder(adapterLayout)
     }

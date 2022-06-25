@@ -9,17 +9,17 @@
         android:id="@+id/nav_home"
         android:name="com.example.kotlintodo.ui.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/todo_list_fragment_home" />
 
     <fragment
         android:id="@+id/nav_gallery"
         android:name="com.example.kotlintodo.ui.gallery.GalleryFragment"
         android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        tools:layout="@layout/todo_list_fragment_gallery" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.example.kotlintodo.ui.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/todo_list_fragment_slideshow" />
 </navigation>
