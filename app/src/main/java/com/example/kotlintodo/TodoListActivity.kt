@@ -1,6 +1,7 @@
 package com.example.kotlintodo
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import com.google.android.material.navigation.NavigationView
@@ -28,6 +29,12 @@ class TodoListActivity : AppCompatActivity() {
 
         binding = TodoListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * Programmatically set FAB icon colors, as it can't be set in XML
+         */
+        binding.appBarTasks.fabAddTodo.setColorFilter(getColor(R.color.primary))
+        binding.appBarTasks.fabSignOut.setColorFilter(getColor(R.color.primary))
 
         setSupportActionBar(binding.appBarTasks.toolbar)
 

@@ -62,10 +62,16 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
          * Render item data
          */
         holder.textView.text = item.label
+        // Checkbox "Done"
         holder.checkboxDone.isChecked = item.done
-        holder.checkboxImportant.isChecked = item.important
+        holder.checkboxDone.backgroundTintList = context.getColorStateList(R.color.primary);
+        holder.checkboxDone.setButtonDrawable(if (item.done) R.drawable.chekbox_checked else R.drawable.checkbox_uncheked)
         toggleDoneStrikethrough(holder, item.done)
-        toggleImportantCheckboxColor(holder, item.important)
+        toggleCheckboxColor(holder.checkboxDone, item.done)
+        // Checkbox "Important"
+        holder.checkboxImportant.isChecked = item.important
+        holder.checkboxImportant.setButtonDrawable(if (item.important) R.drawable.star_checked else R.drawable.star_unchecked)
+        toggleCheckboxColor(holder.checkboxImportant, item.important)
 
         holder.todoItem.setOnClickListener { view ->
             val intent = Intent(context, TodoDetailActivity::class.java)
@@ -103,7 +109,7 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
                 .addOnSuccessListener {
                     if (item.important) showToast("Todo marked")
                     else showToast("Todo unmarked")
-                    toggleImportantCheckboxColor(holder, item.important)
+                    toggleCheckboxColor(holder.checkboxImportant, item.important)
                     updateTodoList()
                 }
         }
@@ -119,8 +125,8 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         return Firebase.firestore.collection(userId)
     }
 
-    private fun toggleImportantCheckboxColor(holder: TodoViewHolder, checked: Boolean) {
-        holder.checkboxImportant.buttonTintList = ColorStateList.valueOf(
+    private fun toggleCheckboxColor(checkbox: MaterialCheckBox, checked: Boolean) {
+        checkbox.buttonTintList = ColorStateList.valueOf(
             ContextCompat.getColor(
                 context,
                 if (checked) R.color.primary else R.color.default_grey
