@@ -2,6 +2,7 @@ package com.example.kotlintodo.adapter
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -54,9 +55,8 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
         holder.textView.text = item.label
         holder.checkboxDone.isChecked = item.done
         holder.checkboxImportant.isChecked = item.important
-        if (item.important) {
-            toggleImportantCheckboxColor(holder, true)
-        }
+        if (item.done) toggleDoneStrikethrough(holder, true)
+        if (item.important) toggleImportantCheckboxColor(holder, true)
 
         /**
          * Handle mark as done checkbox
@@ -69,6 +69,7 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
                 .addOnSuccessListener {
                     item.done = !item.done
                     holder.checkboxDone.isChecked = item.done
+                    toggleDoneStrikethrough(holder, item.done)
                     if (item.done) showToast("Todo done")
                     if (!item.done) showToast("Todo reopened")
                 }
@@ -112,6 +113,10 @@ class TodoAdapter(private val context: Context, private val dataset: List<Todo>)
                 if (checked) R.color.primary else R.color.default_grey
             )
         )
+    }
+
+    private fun toggleDoneStrikethrough(holder: TodoViewHolder, done: Boolean) {
+        holder.textView.paintFlags = if (done) Paint.STRIKE_THRU_TEXT_FLAG else 0
     }
 
     private fun showToast(text: String) {
