@@ -14,18 +14,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.adapter.TodoAdapter
 import com.example.kotlintodo.data.Datasource
-import com.example.kotlintodo.databinding.ActivityTasksBinding
+import com.example.kotlintodo.databinding.TodoListActivityBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class TasksActivity : AppCompatActivity() {
+class TodoListActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityTasksBinding
+    private lateinit var binding: TodoListActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityTasksBinding.inflate(layoutInflater)
+        binding = TodoListActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarTasks.toolbar)
@@ -65,7 +65,7 @@ class TasksActivity : AppCompatActivity() {
         binding.appBarTasks.fabSignOut.setOnClickListener { view ->
             val user = FirebaseAuth.getInstance()
             user.signOut()
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, SignInActivity::class.java))
         }
         /**
          * Todo FAB

@@ -13,13 +13,13 @@
             android:name=".CreateTodoActivity"
             android:exported="false" />
         <activity
-            android:name=".TasksActivity"
+            android:name=".TodoListActivity"
             android:exported="false"
             android:label="@string/title_activity_tasks"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar.NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SignInActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

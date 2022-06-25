@@ -4,14 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.example.kotlintodo.databinding.ActivityMainBinding
+import com.example.kotlintodo.databinding.SignInActivityBinding
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: SignInActivityBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +33,12 @@ class MainActivity : AppCompatActivity() {
         /**
          * Set Activity view with specific layout
          */
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.sign_in_activity)
 
         /**
          * Input bindings
          */
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = SignInActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val email = binding.email
@@ -85,6 +85,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToTasks() {
-        startActivity(Intent(this, TasksActivity::class.java))
+        startActivity(Intent(this, TodoListActivity::class.java))
     }
 }
