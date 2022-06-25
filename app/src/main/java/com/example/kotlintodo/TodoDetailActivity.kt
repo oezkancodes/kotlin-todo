@@ -1,6 +1,7 @@
 package com.example.kotlintodo
 
 import android.content.Intent
+import android.graphics.Paint
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -8,6 +9,7 @@ import android.util.Log
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.kotlintodo.adapter.TodoAdapter
 import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -40,6 +42,10 @@ class TodoDetailActivity : AppCompatActivity() {
 
         backButton.setOnClickListener {
             onUpdateTodo(callback = { startTodoListActivity() })
+        }
+
+        done.setOnClickListener{
+            toggleDoneStrikethrough(done.isChecked)
         }
 
         delete.setOnClickListener {
@@ -75,7 +81,8 @@ class TodoDetailActivity : AppCompatActivity() {
                 val done = data["done"] as Boolean
                 val important = data["important"] as Boolean
                 println(label)
-                binding.todoDetailLabel.setText(label)
+                binding.todoDetailLabel.text = label
+                if (done) toggleDoneStrikethrough(true)
                 binding.etNotes.setText(note)
                 binding.todoDetailDone.isChecked = done
                 binding.todoDetailImportant.isChecked = important
@@ -126,6 +133,10 @@ class TodoDetailActivity : AppCompatActivity() {
 
     private fun startTodoListActivity() {
         startActivity(Intent(this, TodoListActivity::class.java))
+    }
+
+    private fun toggleDoneStrikethrough(done: Boolean) {
+        binding.todoDetailLabel.paintFlags = if (done) Paint.STRIKE_THRU_TEXT_FLAG else 0
     }
 
     private fun showToast(text: String) {
