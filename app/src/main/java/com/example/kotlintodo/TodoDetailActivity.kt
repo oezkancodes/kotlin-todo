@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
 import com.example.kotlintodo.model.Step
+import com.example.kotlintodo.model.Todo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -40,7 +41,7 @@ class TodoDetailActivity : AppCompatActivity() {
         val delete = binding.ivDeleteTodo
 
         backButton.setOnClickListener {
-            super.onBackPressed()
+            onUpdateTodo(callback = { startTodoListActivity() })
         }
 
         delete.setOnClickListener {
@@ -100,6 +101,33 @@ class TodoDetailActivity : AppCompatActivity() {
             .addOnFailureListener {
                 showToast("Couldn't delete Todo")
             }
+    }
+
+    private fun onUpdateTodo(callback: () -> Unit) {
+        var user = FirebaseAuth.getInstance()
+        val db = Firebase.firestore
+        val data = hashMapOf(
+            "label" to binding.cbCheckTodo.text.toString(),
+            "note" to binding.etNotes.text.toString(),
+            // "steps" to arrayListOf<Step>(),
+            "done" to binding.cbCheckTodo.isChecked,
+            "important" to binding.favoriteStar.isChecked
+        )
+        db.collection(user.currentUser!!.uid)
+            .document(uid)
+            .update(data as Map<String, Any>)
+            .addOnSuccessListener {
+                showToast("Updated Todo")
+                callback()
+            }
+            .addOnFailureListener {
+                showToast("Couldn't update Todo")
+                callback()
+            }
+    }
+
+    private fun startTodoListActivity() {
+        startActivity(Intent(this, TodoListActivity::class.java))
     }
 
     private fun showToast(text: String) {
