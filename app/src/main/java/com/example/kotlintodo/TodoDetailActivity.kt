@@ -81,7 +81,7 @@ class TodoDetailActivity : AppCompatActivity() {
                 val done = data["done"] as Boolean
                 val important = data["important"] as Boolean
                 println(label)
-                binding.todoDetailLabel.text = label
+                binding.todoDetailLabel.setText(label)
                 if (done) toggleDoneStrikethrough(true)
                 binding.etNotes.setText(note)
                 binding.todoDetailDone.isChecked = done

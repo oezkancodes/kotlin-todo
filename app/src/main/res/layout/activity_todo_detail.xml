@@ -45,7 +45,7 @@
                 android:background="@android:color/transparent"
                 android:button="@drawable/custom_checkbox" />
 
-            <TextView
+            <EditText
                 android:id="@+id/todo_detail_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
