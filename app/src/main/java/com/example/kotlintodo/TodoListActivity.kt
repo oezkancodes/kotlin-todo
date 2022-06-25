@@ -21,6 +21,7 @@ class TodoListActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: TodoListActivityBinding
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,7 +53,7 @@ class TodoListActivity : AppCompatActivity() {
      */
     private fun renderTodos() {
         Datasource().loadTodos { dataset ->
-            val recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
+            recyclerView = findViewById<RecyclerView>(R.id.recycler_view)
             recyclerView.adapter = TodoAdapter(this, dataset)
             recyclerView.setHasFixedSize(true)
         }
