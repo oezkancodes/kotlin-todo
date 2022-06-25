@@ -1,10 +1,12 @@
 package com.example.kotlintodo
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.EditText
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
 import com.example.kotlintodo.model.Step
@@ -22,7 +24,7 @@ class TodoDetailActivity : AppCompatActivity() {
          * Get uid from intent.putExtra of previous Activity.
          */
         uid = intent.extras?.get("uid") as String
-        loadTodo(uid)
+        loadTodo()
 
         /**
          * Setup Binding & View
@@ -35,14 +37,19 @@ class TodoDetailActivity : AppCompatActivity() {
 
         val important = binding.favoriteStar
         val done = binding.cbCheckTodo
+        val delete = binding.ivDeleteTodo
 
         backButton.setOnClickListener {
             super.onBackPressed()
         }
 
+        delete.setOnClickListener {
+            onDeleteTodo()
+        }
+
         etAddStep = findViewById(R.id.etAddStep)
 
-        etAddStep.addTextChangedListener(object: TextWatcher {
+        etAddStep.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -54,7 +61,7 @@ class TodoDetailActivity : AppCompatActivity() {
         })
     }
 
-    private fun loadTodo (uid: String) {
+    private fun loadTodo() {
         var user = FirebaseAuth.getInstance()
         val db = Firebase.firestore
         db.collection(user.currentUser!!.uid)
@@ -74,5 +81,24 @@ class TodoDetailActivity : AppCompatActivity() {
                 binding.cbCheckTodo.isChecked = done
                 binding.favoriteStar.isChecked = important
             }
+    }
+
+    private fun onDeleteTodo() {
+        var user = FirebaseAuth.getInstance()
+        val db = Firebase.firestore
+        db.collection(user.currentUser!!.uid)
+            .document(uid)
+            .delete()
+            .addOnSuccessListener {
+                showToast("Deleted Todo")
+                startActivity(Intent(this, TodoListActivity::class.java))
+            }
+            .addOnFailureListener {
+                showToast("Couldn't delete Todo")
+            }
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
