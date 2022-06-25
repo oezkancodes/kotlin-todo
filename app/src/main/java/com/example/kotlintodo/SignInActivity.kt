@@ -9,7 +9,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
-class MainActivity : AppCompatActivity() {
+class SignInActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
@@ -85,6 +85,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun goToTasks() {
-        startActivity(Intent(this, TasksActivity::class.java))
+        startActivity(Intent(this, TodoListActivity::class.java))
     }
 }

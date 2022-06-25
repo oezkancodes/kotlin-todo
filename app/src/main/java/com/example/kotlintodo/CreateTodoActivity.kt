@@ -56,7 +56,7 @@ class CreateTodoActivity : AppCompatActivity() {
             .set(data)
             .addOnSuccessListener {
                 showToast("Created new Todo")
-                startActivity(Intent(this, TasksActivity::class.java))
+                startActivity(Intent(this, TodoListActivity::class.java))
             }
             .addOnFailureListener {
                 showToast("Failed to create Todo")

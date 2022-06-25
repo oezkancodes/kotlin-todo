@@ -1,7 +1,6 @@
 package com.example.kotlintodo.adapter
 
 import android.content.Context
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.R
-import com.example.kotlintodo.TasksActivity
 import com.example.kotlintodo.model.Todo
 import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.firebase.auth.FirebaseAuth
