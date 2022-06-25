@@ -81,6 +81,10 @@ class TodoDetailActivity : AppCompatActivity() {
                 binding.cbCheckTodo.isChecked = done
                 binding.favoriteStar.isChecked = important
             }
+            .addOnFailureListener {
+                showToast("Couldn't load Todo")
+                startActivity(Intent(this, TodoListActivity::class.java))
+            }
     }
 
     private fun onDeleteTodo() {
