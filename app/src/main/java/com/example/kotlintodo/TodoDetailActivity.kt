@@ -9,8 +9,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
-import com.example.kotlintodo.model.Step
-import com.example.kotlintodo.model.Todo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -34,11 +32,11 @@ class TodoDetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityTodoDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val backButton = binding.btnBackToList
+        val backButton = binding.todoDetailBack
 
-        val important = binding.favoriteStar
-        val done = binding.cbCheckTodo
-        val delete = binding.ivDeleteTodo
+        val important = binding.todoDetailImportant
+        val done = binding.todoDetailDone
+        val delete = binding.todoDetailDelete
 
         backButton.setOnClickListener {
             onUpdateTodo(callback = { startTodoListActivity() })
@@ -48,7 +46,7 @@ class TodoDetailActivity : AppCompatActivity() {
             onDeleteTodo()
         }
 
-        etAddStep = findViewById(R.id.etAddStep)
+        etAddStep = findViewById(R.id.todo_detail_add_step)
 
         etAddStep.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
@@ -77,10 +75,10 @@ class TodoDetailActivity : AppCompatActivity() {
                 val done = data["done"] as Boolean
                 val important = data["important"] as Boolean
                 println(label)
-                binding.cbCheckTodo.setText(label)
+                binding.todoDetailLabel.setText(label)
                 binding.etNotes.setText(note)
-                binding.cbCheckTodo.isChecked = done
-                binding.favoriteStar.isChecked = important
+                binding.todoDetailDone.isChecked = done
+                binding.todoDetailImportant.isChecked = important
             }
             .addOnFailureListener {
                 showToast("Couldn't load Todo")
@@ -107,11 +105,11 @@ class TodoDetailActivity : AppCompatActivity() {
         var user = FirebaseAuth.getInstance()
         val db = Firebase.firestore
         val data = hashMapOf(
-            "label" to binding.cbCheckTodo.text.toString(),
+            "label" to binding.todoDetailLabel.text.toString(),
             "note" to binding.etNotes.text.toString(),
             // "steps" to arrayListOf<Step>(),
-            "done" to binding.cbCheckTodo.isChecked,
-            "important" to binding.favoriteStar.isChecked
+            "done" to binding.todoDetailDone.isChecked,
+            "important" to binding.todoDetailImportant.isChecked
         )
         db.collection(user.currentUser!!.uid)
             .document(uid)
