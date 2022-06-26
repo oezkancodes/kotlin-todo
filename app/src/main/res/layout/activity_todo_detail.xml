@@ -71,6 +71,7 @@
         android:id="@+id/todo_detail_add_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:inputType="text"
         android:layout_marginTop="12dp"
         android:background="@android:color/transparent"
         android:drawableLeft="@drawable/ic_add_step"
