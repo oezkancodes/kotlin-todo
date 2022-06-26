@@ -15,7 +15,8 @@ class Datasource {
 
         /* Fetch data from Firebase Firestore */
         db.collection(user.currentUser!!.uid)
-            .orderBy("done", com.google.firebase.firestore.Query.Direction.ASCENDING)
+            .orderBy("done")
+            .orderBy("important", com.google.firebase.firestore.Query.Direction.DESCENDING)
             .get()
             .addOnSuccessListener { docRef ->
                 docRef.forEach {
