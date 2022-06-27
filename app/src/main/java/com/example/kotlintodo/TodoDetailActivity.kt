@@ -6,11 +6,18 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.KeyEvent
+import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.kotlintodo.adapter.StepAdapter
 import com.example.kotlintodo.adapter.TodoAdapter
 import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
+import com.example.kotlintodo.model.Step
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -19,6 +26,8 @@ class TodoDetailActivity : AppCompatActivity() {
     private lateinit var etAddStep: EditText
     private lateinit var uid: String
     private lateinit var binding: ActivityTodoDetailBinding
+    private lateinit var stepAdapter: StepAdapter
+    private lateinit var rvStepItems: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /**
@@ -52,18 +61,35 @@ class TodoDetailActivity : AppCompatActivity() {
             onDeleteTodo()
         }
 
+        stepAdapter = StepAdapter(mutableListOf())
+
+        rvStepItems = findViewById(R.id.rvStepItems)
+
+        rvStepItems.adapter = stepAdapter
+
+        rvStepItems.layoutManager= LinearLayoutManager(this)
+
         etAddStep = findViewById(R.id.todo_detail_add_step)
 
-        etAddStep.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
+        etAddStep.setOnEditorActionListener {view, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
+                keyEvent == null ||
+                keyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                //User finished typing
+                val stepLabel = etAddStep.text.toString()
+                if(stepLabel.isNotEmpty()) {
+                    val step = Step("12345", stepLabel, false)
+                    stepAdapter.addStep(step)
+                    etAddStep.text.clear()
+                }
 
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
-
-            override fun afterTextChanged(p0: Editable?) {
-                Log.d("Add Step Value:", "afterTextChanged $p0")
+                true
             }
+            false
+        }
 
-        })
+
+
     }
 
     private fun loadTodo() {
