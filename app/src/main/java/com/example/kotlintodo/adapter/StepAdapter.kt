@@ -13,7 +13,7 @@ class StepAdapter(
 ) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
     class StepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val stepItemLabel: TextView = itemView.findViewById(R.id.tvStepItem)
+        val stepItemLabel: TextView = itemView.findViewById(R.id.etStepItem)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepViewHolder {
@@ -29,6 +29,10 @@ class StepAdapter(
     fun addStep(step: Step) {
         steps.add(step)
         notifyItemInserted(steps.size - 1)
+    }
+
+    fun deleteStep() {
+        // Logic to remove step item
     }
 
     override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
