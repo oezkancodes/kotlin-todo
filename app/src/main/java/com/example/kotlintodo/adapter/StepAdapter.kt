@@ -2,6 +2,7 @@ package com.example.kotlintodo.adapter
 
 import android.content.Context
 import android.content.res.ColorStateList
+import android.graphics.Paint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -48,10 +49,10 @@ class StepAdapter(
     }
 
     override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
-
+        // Handle "done" property
         val isDone = stepsList[position].done
-        Log.d("Done?", "$isDone")
-
+        holder.stepItemDone.isChecked = isDone
+        toggleDoneStrikethrough(holder.stepItemLabel, isDone)
 
         val curStep = stepsList[position]
         holder.itemView.apply {
@@ -61,15 +62,14 @@ class StepAdapter(
             deleteStep(position)
         }
         holder.stepItemDone.setOnClickListener {
-            stepsList[position].done = holder.stepItemDone.isChecked
-
-            holder.stepItemDone.buttonTintList = ColorStateList.valueOf(
-                ContextCompat.getColor(
-                    context,
-                    if (isDone) R.color.primary else R.color.default_grey
-                )
-            )
+            val isDone = holder.stepItemDone.isChecked
+            stepsList[position].done = isDone
+            toggleDoneStrikethrough(holder.stepItemLabel, isDone)
         }
+    }
+
+    private fun toggleDoneStrikethrough(textView: TextView, done: Boolean) {
+        textView.paintFlags = if (done) Paint.STRIKE_THRU_TEXT_FLAG else 0
     }
 
     override fun getItemCount(): Int {
