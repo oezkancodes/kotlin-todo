@@ -3,6 +3,8 @@ package com.example.kotlintodo.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.R
@@ -12,8 +14,12 @@ class StepAdapter(
     private val steps: MutableList<Step>
 ) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
+    var stepsList = steps
+
     class StepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stepItemLabel: TextView = itemView.findViewById(R.id.etStepItem)
+        val stepItemDelete: ImageView = itemView.findViewById(R.id.ivRemoveStep)
+        val stepItemDone: CheckBox = itemView.findViewById(R.id.todo_detail_done)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepViewHolder {
@@ -27,22 +33,29 @@ class StepAdapter(
     }
 
     fun addStep(step: Step) {
-        steps.add(step)
-        notifyItemInserted(steps.size - 1)
+        stepsList.add(step)
+        notifyItemInserted(stepsList.size - 1)
     }
 
-    fun deleteStep() {
-        // Logic to remove step item
+    private fun deleteStep(position: Int) {
+        stepsList.removeAt(position)
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
-        val curStep = steps[position]
+        val curStep = stepsList[position]
         holder.itemView.apply {
             holder.stepItemLabel.text = curStep.label
+        }
+        holder.stepItemDelete.setOnClickListener {
+            deleteStep(position)
+        }
+        holder.stepItemDone.setOnClickListener {
+            stepsList[position].done = holder.stepItemDone.isChecked
         }
     }
 
     override fun getItemCount(): Int {
-        return steps.size
+        return stepsList.size
     }
 }

@@ -54,7 +54,7 @@ class TodoDetailActivity : AppCompatActivity() {
             onUpdateTodo(callback = { startTodoListActivity() })
         }
 
-        done.setOnClickListener{
+        done.setOnClickListener {
             toggleDoneStrikethrough(done.isChecked)
         }
 
@@ -68,17 +68,18 @@ class TodoDetailActivity : AppCompatActivity() {
 
         rvStepItems.adapter = stepAdapter
 
-        rvStepItems.layoutManager= LinearLayoutManager(this)
+        rvStepItems.layoutManager = LinearLayoutManager(this)
 
         etAddStep = findViewById(R.id.todo_detail_add_step)
 
-        etAddStep.setOnEditorActionListener {view, actionId, keyEvent ->
+        etAddStep.setOnEditorActionListener { view, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_DONE ||
                 keyEvent == null ||
-                keyEvent.keyCode == KeyEvent.KEYCODE_ENTER) {
+                keyEvent.keyCode == KeyEvent.KEYCODE_ENTER
+            ) {
                 //User finished typing
                 val stepLabel = etAddStep.text.toString()
-                if(stepLabel.isNotEmpty()) {
+                if (stepLabel.isNotEmpty()) {
                     val step = Step("12345", stepLabel, false)
                     stepAdapter.addStep(step)
                     etAddStep.text.clear()
@@ -88,9 +89,6 @@ class TodoDetailActivity : AppCompatActivity() {
             }
             false
         }
-
-
-
     }
 
     private fun loadTodo() {
@@ -101,18 +99,30 @@ class TodoDetailActivity : AppCompatActivity() {
             .get()
             .addOnSuccessListener { docRef ->
                 val data: MutableMap<String, Any> = docRef.data as MutableMap<String, Any>
+
+                // Extract data of each To-do Map
                 val label = data["label"] as String
                 val note = data["note"] as String
-                // TODO: set steps after UI is ready
-                // val steps = data["steps"] as MutableList<Step>
+                val steps = data["steps"] as MutableList<HashMap<String, Any>>
                 val done = data["done"] as Boolean
                 val important = data["important"] as Boolean
-                println(label)
+
+                // Set UI
                 binding.todoDetailLabel.setText(label)
                 if (done) toggleDoneStrikethrough(true)
                 binding.etNotes.setText(note)
                 binding.todoDetailDone.isChecked = done
                 binding.todoDetailImportant.isChecked = important
+
+                // -- Loop steps and add them to view incrementally
+                for (stepHashMap in steps) {
+                    // Extract data of each Step HashMap
+                    val uid = stepHashMap["uid"] as String
+                    val label = stepHashMap["label"] as String
+                    val done = stepHashMap["done"] as Boolean
+                    val step = Step(uid, label, done)
+                    stepAdapter.addStep(step)
+                }
             }
             .addOnFailureListener {
                 showToast("Couldn't load Todo")
@@ -141,7 +151,7 @@ class TodoDetailActivity : AppCompatActivity() {
         val data = hashMapOf(
             "label" to binding.todoDetailLabel.text.toString(),
             "note" to binding.etNotes.text.toString(),
-            // "steps" to arrayListOf<Step>(),
+            "steps" to stepAdapter.stepsList,
             "done" to binding.todoDetailDone.isChecked,
             "important" to binding.todoDetailImportant.isChecked
         )
