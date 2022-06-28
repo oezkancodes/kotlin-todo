@@ -19,7 +19,6 @@ import com.example.kotlintodo.databinding.TodoListActivityBinding
 import com.google.firebase.auth.FirebaseAuth
 
 class TodoListActivity : AppCompatActivity() {
-
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var binding: TodoListActivityBinding
     private lateinit var recyclerView: RecyclerView
