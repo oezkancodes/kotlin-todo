@@ -12,6 +12,8 @@ class StepAdapter(
     private val steps: MutableList<Step>
 ) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
+    private var stepsList = steps
+
     class StepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stepItemLabel: TextView = itemView.findViewById(R.id.etStepItem)
     }
@@ -27,8 +29,8 @@ class StepAdapter(
     }
 
     fun addStep(step: Step) {
-        steps.add(step)
-        notifyItemInserted(steps.size - 1)
+        stepsList.add(step)
+        notifyItemInserted(stepsList.size - 1)
     }
 
     fun deleteStep() {
@@ -36,13 +38,13 @@ class StepAdapter(
     }
 
     override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
-        val curStep = steps[position]
+        val curStep = stepsList[position]
         holder.itemView.apply {
             holder.stepItemLabel.text = curStep.label
         }
     }
 
     override fun getItemCount(): Int {
-        return steps.size
+        return stepsList.size
     }
 }
