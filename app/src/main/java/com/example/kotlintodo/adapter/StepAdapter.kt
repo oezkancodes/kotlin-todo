@@ -3,6 +3,7 @@ package com.example.kotlintodo.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,7 @@ class StepAdapter(
     class StepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stepItemLabel: TextView = itemView.findViewById(R.id.etStepItem)
         val stepItemDelete: ImageView = itemView.findViewById(R.id.ivRemoveStep)
+        val stepItemDone: CheckBox = itemView.findViewById(R.id.todo_detail_done)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepViewHolder {
@@ -45,8 +47,11 @@ class StepAdapter(
         holder.itemView.apply {
             holder.stepItemLabel.text = curStep.label
         }
-        holder.stepItemDelete.setOnClickListener{
+        holder.stepItemDelete.setOnClickListener {
             deleteStep(position)
+        }
+        holder.stepItemDone.setOnClickListener {
+            stepsList[position].done = holder.stepItemDone.isChecked
         }
     }
 
