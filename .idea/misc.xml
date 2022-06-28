@@ -7,12 +7,14 @@
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/checked.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/custom_checkbox.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/edittext_shadow.xml" value="0.3675" />
+        <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/edittext_shadow_bottom.xml" value="0.366" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/ic_add_step.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/ic_baseline_keyboard_arrow_left_24.xml" value="0.3335" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/ic_checkbox_checked.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/ic_checkbox_unchecked.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/ic_remove_step.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/star.xml" value="0.361" />
+        <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/todo_detail_footer_shadow_top.xml" value="0.366" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/drawable/unchecked.xml" value="0.3675" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/justi/Documents/Coding/HFU/Mobile App Development/kotlin-todo/app/src/main/res/layout/activity_tasks.xml" value="0.32653985507246375" />
@@ -28,9 +30,7 @@
         <entry key="..\:/Users/oezka/AndroidStudioProjects/KotlinToDo/app/src/main/res/layout/activity_main.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/oezka/AndroidStudioProjects/KotlinToDo/app/src/main/res/layout/fragment_gallery.xml" value="0.38858695652173914" />
         <entry key="..\:/Users/oezka/AndroidStudioProjects/KotlinToDo/app/src/main/res/layout/fragment_home.xml" value="0.38858695652173914" />
-        <entry key="..\:/Users/oezka/AndroidStudioProjects/KotlinToDo/app/src/main/res/layout/step_list_step_item.xml" value="0.22" />
         <entry key="..\:/Users/oezka/AndroidStudioProjects/KotlinToDo/app/src/main/res/layout/todo_item.xml" value="0.3098958333333333" />
-        <entry key="..\:/Users/oezka/AndroidStudioProjects/KotlinToDo/app/src/main/res/layout/todo_list_fragment_home.xml" value="0.10555555555555556" />
       </map>
     </option>
   </component>
