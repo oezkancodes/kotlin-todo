@@ -69,19 +69,20 @@
 
     <EditText
         android:id="@+id/todo_detail_add_step"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
         android:layout_marginTop="12dp"
-        android:background="@android:color/transparent"
+        android:background="@drawable/edittext_shadow"
         android:drawableLeft="@drawable/ic_add_step"
         android:drawablePadding="15dp"
         android:drawableTint="#2196F3"
         android:hint="Schritt hinzufügen"
+        android:inputType="text"
         android:minHeight="48dp"
         android:textColorHint="#2196F3"
         android:textSize="16sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
