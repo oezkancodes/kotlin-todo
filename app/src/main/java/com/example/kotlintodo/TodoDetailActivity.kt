@@ -141,7 +141,7 @@ class TodoDetailActivity : AppCompatActivity() {
         val data = hashMapOf(
             "label" to binding.todoDetailLabel.text.toString(),
             "note" to binding.etNotes.text.toString(),
-            // "steps" to arrayListOf<Step>(),
+            "steps" to stepAdapter.stepsList,
             "done" to binding.todoDetailDone.isChecked,
             "important" to binding.todoDetailImportant.isChecked
         )

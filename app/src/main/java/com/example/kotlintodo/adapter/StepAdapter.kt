@@ -13,7 +13,7 @@ class StepAdapter(
     private val steps: MutableList<Step>
 ) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
-    private var stepsList = steps
+    var stepsList = steps
 
     class StepViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val stepItemLabel: TextView = itemView.findViewById(R.id.etStepItem)
