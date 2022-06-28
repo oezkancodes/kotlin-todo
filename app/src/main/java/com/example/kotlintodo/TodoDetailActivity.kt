@@ -1,24 +1,23 @@
 package com.example.kotlintodo
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.graphics.Paint
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.KeyEvent
-import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.CheckBox
 import android.widget.EditText
-import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.adapter.StepAdapter
-import com.example.kotlintodo.adapter.TodoAdapter
 import com.example.kotlintodo.databinding.ActivityTodoDetailBinding
 import com.example.kotlintodo.model.Step
+import com.example.kotlintodo.model.Todo
+import com.google.android.material.checkbox.MaterialCheckBox
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -29,6 +28,7 @@ class TodoDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityTodoDetailBinding
     private lateinit var stepAdapter: StepAdapter
     private lateinit var rvStepItems: RecyclerView
+    private lateinit var currentTodo: Todo
 
     override fun onCreate(savedInstanceState: Bundle?) {
         /**
@@ -46,7 +46,7 @@ class TodoDetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         val backButton = binding.todoDetailBack
 
-        val important = binding.todoDetailImportant
+        val important: MaterialCheckBox = binding.todoDetailImportant
         val done = binding.todoDetailDone
         val delete = binding.todoDetailDelete
 
@@ -56,11 +56,21 @@ class TodoDetailActivity : AppCompatActivity() {
 
         done.setOnClickListener {
             toggleDoneStrikethrough(done.isChecked)
+            toggleCheckboxColor(done, done.isChecked)
         }
 
         delete.setOnClickListener {
             onDeleteTodo()
         }
+
+        important.setOnClickListener {
+            val isImportant = !currentTodo.important
+            currentTodo.important = isImportant
+            important.setButtonDrawable(if (isImportant) R.drawable.star_checked else R.drawable.star_unchecked)
+            toggleCheckboxColor(important, isImportant)
+        }
+
+
 
         stepAdapter = StepAdapter(this, mutableListOf())
 
@@ -112,7 +122,10 @@ class TodoDetailActivity : AppCompatActivity() {
                 if (done) toggleDoneStrikethrough(true)
                 binding.etNotes.setText(note)
                 binding.todoDetailDone.isChecked = done
-                binding.todoDetailImportant.isChecked = important
+                binding.todoDetailImportant.setButtonDrawable(R.drawable.chekbox_checked)
+                binding.todoDetailImportant.setButtonDrawable(if (important) R.drawable.star_checked else R.drawable.star_unchecked)
+                toggleMaterialCheckboxColor(binding.todoDetailImportant, important)
+                toggleCheckboxColor(binding.todoDetailDone, done)
 
                 // -- Loop steps and add them to view incrementally
                 for (stepHashMap in steps) {
@@ -123,11 +136,30 @@ class TodoDetailActivity : AppCompatActivity() {
                     val step = Step(uid, label, done)
                     stepAdapter.addStep(step)
                 }
+                currentTodo = Todo(uid, label, note, steps as MutableList<Step>, done, important)
             }
             .addOnFailureListener {
                 showToast("Couldn't load Todo")
                 startActivity(Intent(this, TodoListActivity::class.java))
             }
+    }
+
+    fun toggleCheckboxColor(checkBox: CheckBox, isChecked: Boolean){
+        checkBox.buttonTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                this,
+                if (isChecked) R.color.primary else R.color.default_grey
+            )
+        )
+    }
+
+    fun toggleMaterialCheckboxColor(checkBox: MaterialCheckBox, isChecked: Boolean){
+        checkBox.buttonTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                this,
+                if (isChecked) R.color.primary else R.color.default_grey
+            )
+        )
     }
 
     private fun onDeleteTodo() {

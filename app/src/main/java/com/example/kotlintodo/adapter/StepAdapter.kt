@@ -52,6 +52,8 @@ class StepAdapter(
         // Handle "done" property
         val isDone = stepsList[position].done
         holder.stepItemDone.isChecked = isDone
+        toggleCheckboxColor(holder.stepItemDone, isDone)
+        // holder.stepItemDone.backgroundTintList = context.getColorStateList(R.color.primary);
         toggleDoneStrikethrough(holder.stepItemLabel, isDone)
 
         val curStep = stepsList[position]
@@ -65,7 +67,17 @@ class StepAdapter(
             val isDone = holder.stepItemDone.isChecked
             stepsList[position].done = isDone
             toggleDoneStrikethrough(holder.stepItemLabel, isDone)
+            toggleCheckboxColor(holder.stepItemDone, isDone)
         }
+    }
+
+    fun toggleCheckboxColor(checkBox: CheckBox, isChecked: Boolean){
+        checkBox.buttonTintList = ColorStateList.valueOf(
+            ContextCompat.getColor(
+                context,
+                if (isChecked) R.color.primary else R.color.default_grey
+            )
+        )
     }
 
     private fun toggleDoneStrikethrough(textView: TextView, done: Boolean) {
