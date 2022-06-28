@@ -96,7 +96,7 @@
 
 
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/todo_item"
+        android:id="@+id/notes_step_detail"
         android:layout_width="0dp"
         android:layout_height="186dp"
         android:layout_marginTop="16dp"

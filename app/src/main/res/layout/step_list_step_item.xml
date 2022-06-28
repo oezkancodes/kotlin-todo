@@ -19,13 +19,24 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp">
 
+        <CheckBox
+            android:id="@+id/todo_detail_done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:button="@drawable/custom_checkbox"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <EditText
             android:id="@+id/etStepItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:inputType="text"
             android:text="Step Item"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/todo_detail_done"
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
