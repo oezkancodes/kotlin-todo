@@ -62,7 +62,7 @@ class TodoDetailActivity : AppCompatActivity() {
             onDeleteTodo()
         }
 
-        stepAdapter = StepAdapter(mutableListOf())
+        stepAdapter = StepAdapter(this, mutableListOf())
 
         rvStepItems = findViewById(R.id.rvStepItems)
 

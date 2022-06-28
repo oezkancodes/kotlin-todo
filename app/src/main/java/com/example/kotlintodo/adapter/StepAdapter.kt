@@ -1,16 +1,21 @@
 package com.example.kotlintodo.adapter
 
+import android.content.Context
+import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlintodo.R
 import com.example.kotlintodo.model.Step
 
 class StepAdapter(
+    private val context: Context,
     private val steps: MutableList<Step>
 ) : RecyclerView.Adapter<StepAdapter.StepViewHolder>() {
 
@@ -43,6 +48,11 @@ class StepAdapter(
     }
 
     override fun onBindViewHolder(holder: StepViewHolder, position: Int) {
+
+        val isDone = stepsList[position].done
+        Log.d("Done?", "$isDone")
+
+
         val curStep = stepsList[position]
         holder.itemView.apply {
             holder.stepItemLabel.text = curStep.label
@@ -52,6 +62,13 @@ class StepAdapter(
         }
         holder.stepItemDone.setOnClickListener {
             stepsList[position].done = holder.stepItemDone.isChecked
+
+            holder.stepItemDone.buttonTintList = ColorStateList.valueOf(
+                ContextCompat.getColor(
+                    context,
+                    if (isDone) R.color.primary else R.color.default_grey
+                )
+            )
         }
     }
 
