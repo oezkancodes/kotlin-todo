@@ -1,6 +1,14 @@
-# Mobile App Development - Todo App
+# Kotlin To Do
 
-> ⚠️ Der PlayStore ist notwendig um Firebase zu nutzen.
+* Für das Modul Mobile App Development an der Hochschule Furtwangen
+* Ein einacher Microsoft To Do Klon, umgesetzt in Kotlin für Android
+* Authentifizierung per Firebase Auth
+* Persistenz durch Firebase Firestore
+
+> ⚠️ Der PlayStore ist Voraussetzung um die App zu nutzen
+
+## Einblicke
+
 
 | List                          | Detail                            | Detail                            |
 | ----------------------------- |---------------------------------- | --------------------------------- |
